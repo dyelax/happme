@@ -20,6 +20,12 @@ function getHTML(){
 
 var posts = [];
 var postedText = [];
+var userID = "";
+
+$(window).load(function(){
+	var userURL = $("._36he").attr("href");
+	userID = userURL.substr(25, userURL.indexOf("?") - 25);//cut off facebook domain and GET info.
+});
 
 $(window).scroll(function() {
 	$("._5v3q").each(function() {//each timeline post
@@ -56,40 +62,26 @@ $(window).scroll(function() {
 			});
 		});
 		
-		console.log("type: "+type);
-		console.log("ID  : "+ID);
-		console.log("post: "+postText);
-		console.log("comments: "+commentText)
-		
-		if (type !== "" && ID !== "" && postText !== "" && $.inArray(postText+commentText, postedText) < 0) {
-			console.log("SUCCESS");
+		if (type !== "" && ID !== "" && postText !== "" && $.inArray(postText+commentText, postedText) < 0) {	
+			post["uid"] = userID;
+			post["filtering"] = false;//TODO
+			post["post_type"] = type;
+			post["post_ID"] = ID;
+			post["contents"] = {"post" : postText, "comment" : commentText};
+						
+			//POST the post to the server
+			var serverURL = "http://happme.azurewebsites.net";
+			$.post(serverURL, post, function(data, textStatus) {
+				console.log("Response Data: "+data);
+			});
 			
-			post["type"] = type;
-			post["ID"] = ID;
-			post["text"] = postText;
-			post["comment"] = commentText;
-			
-//			console.log("type: "+type);
-//			console.log("ID  : "+ID);
-//			console.log("post: "+postText);
-//			console.log("comments: "+commentText)
-//			console.log("");
-			
-			posts.push(post);
 			postedText.push(postText+commentText);
+			posts.push(post);
 		}
-		console.log("");
 	});
 	
 	console.log(posts);
-	
-//	$("._5pbx").find("p").each(function() {
-//		var cleanText = cleanHTML($(this).html());
-//		console.log(cleanText);
-//		posts += cleanText;
-//	});
 });
-//get link (use as ID) from ._5pcq -> href.
 
 //Text cleaning
 function cleanHTML(html) {
