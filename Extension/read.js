@@ -22,7 +22,6 @@ var posts = [];
 var postedIDs = [];
 
 $(window).scroll(function() {
-//	$("._1dwg").each(function() {//each timeline post
 	$("._5v3q").each(function() {//each timeline post
 		var post = {};
 		var type = "";
@@ -52,28 +51,35 @@ $(window).scroll(function() {
 			});
 		});
 		$(this).find(".UFICommentBody").each(function() {//get main post text
-			console.log("A");
 			$(this).find("span").each(function() {//should only be one
 				commentText += cleanHTML($(this).html())+" ";
 			});
 		});
 		
-//		console.log("type: "+type);
-//		console.log("ID  : "+ID);
-//		console.log("post: "+postText);
-//		console.log("");
-		console.log("comments: "+commentText);
+		console.log("type: "+type);
+		console.log("ID  : "+ID);
+		console.log("post: "+postText);
+		console.log("comments: "+commentText)
+		console.log("");
 		
-		if (type !== "" && ID !== "" && postText !== "" && $.inArray((type, ID), postedIDs) < 0) {
+		if ((type !== "" && ID !== "" && postText !== "" && $.inArray((type, ID, commentText), postedIDs) < 0)
+		   || ($.inArray((type, ID), postedIDs, "") >= 0 && commentText !== "")) {
+			console.log("SUCCESS");
+			
 			post["type"] = type;
 			post["ID"] = ID;
 			post["text"] = postText;
 			post["comment"] = commentText;
 			
+//			console.log("type: "+type);
+//			console.log("ID  : "+ID);
+//			console.log("post: "+postText);
+//			console.log("comments: "+commentText)
+//			console.log("");
+			
 			posts.push(post);
-			postedIDs.push((type, ID));
+			postedIDs.push((type, ID, commentText));
 		}
-		
 	});
 	
 	console.log(posts);
