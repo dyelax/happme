@@ -19,7 +19,7 @@ function getHTML(){
 //._5pbx .userContent -> p
 
 var posts = [];
-var postedIDs = [];
+var postedText = [];
 
 $(window).scroll(function() {
 	$("._5v3q").each(function() {//each timeline post
@@ -60,10 +60,8 @@ $(window).scroll(function() {
 		console.log("ID  : "+ID);
 		console.log("post: "+postText);
 		console.log("comments: "+commentText)
-		console.log("");
 		
-		if ((type !== "" && ID !== "" && postText !== "" && $.inArray((type, ID, commentText), postedIDs) < 0)
-		   || ($.inArray((type, ID), postedIDs, "") >= 0 && commentText !== "")) {
+		if (type !== "" && ID !== "" && postText !== "" && $.inArray(postText+commentText, postedText) < 0) {
 			console.log("SUCCESS");
 			
 			post["type"] = type;
@@ -78,8 +76,9 @@ $(window).scroll(function() {
 //			console.log("");
 			
 			posts.push(post);
-			postedIDs.push((type, ID, commentText));
+			postedText.push(postText+commentText);
 		}
+		console.log("");
 	});
 	
 	console.log(posts);
