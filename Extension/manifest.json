@@ -9,9 +9,13 @@
 		"default_icon": "puppyLogo.png",
 		"default_popup": "popup.html"
 	},
-	"background" : {
-		"scripts": ["background.js"]
-	},
+	"content_scripts": [
+    {
+      "matches": ["*://www.facebook.com/*"],
+      "js": ["jquery-2.1.4.min.js", "read.js"],
+      "run_at": "document_end" 
+    }
+  ],
 	"permissions": [
 		"activeTab",
 		"<all_urls>"
