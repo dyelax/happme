@@ -7,6 +7,10 @@
 <html>
   <head>
 	  <link rel="stylesheet" type="text/css" href="styles/switch.css" />
+	  <!-- JQuery -->
+	  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+
+	  <script href="js/communicator.js"></script>
 	  
     <title>Happme :)</title>
     <style>
@@ -15,13 +19,49 @@
         	font-size: 100%;
         }
 		
+		p {
+			margin: 0;
+		}
+		
+		#container{
+			margin: 0 auto;
+			width: 203px;
+			padding: 0 15px 10px 10px;
+		}
+		
+		#title{
+			text-align: center;
+		}
+		
+		#filter{
+/*			padding: 10px;*/
+			
+/*			width: 50%;*/
+			margin: 0 auto;
+		}
 		#filter p{
 			float: left;
 			margin-right: 20px;
+			margin-top: 16px;
 		}
 		#filter .onoffswitch{
-			float: left;
+			float: right;
 			margin-top: 8px;
+		}
+		
+		#contact{
+			padding-top: 16px;
+		}
+		
+		#contact input{
+			margin-top: 8px;
+			
+			border: 1px solid gray;
+			border-radius: 6px;
+			
+			padding: 3px;
+			height: 20px;
+			width: 100%;
 		}
 		
 		
@@ -36,19 +76,21 @@
 		  <div id="filter">
 			   <p>Filter Posts?</p>
 			   <div class="onoffswitch">
-				   <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="myonoffswitch" checked>
-				   <label class="onoffswitch-label" for="myonoffswitch">
+				   <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="filterSwitch" checked />
+				   <label class="onoffswitch-label" for="filterSwitch">
 					   <span class="onoffswitch-inner"></span>
 					   <span class="onoffswitch-switch"></span>
 				   </label>
 			  </div>
+			  
+			  <div style="clear: both" />
 		  </div>
-		  <div style="clear: both" />
 		  <div id="contact">
 			  <p>Contact Email:</p>
 			  <input id="contactEmail" type="email" />
 		  </div>
 	  </div>
 	  
+	  <script src="js/communicator.js"></script>
   </body>
 </html>
