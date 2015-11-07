@@ -2,7 +2,7 @@
 	"manifest_version": 2,
 	
 	"name": "Happme",
-	"description": "Improve your mental health by analyzing and improving content on your Facebook feed.",
+	"description": "Improve your mental health by analyzing and eliminating negative content on your Facebook feed.",
 	"version": "1.0",
 	
 	"browser_action": {
