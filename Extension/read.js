@@ -22,11 +22,13 @@ var posts = [];
 var postedIDs = [];
 
 $(window).scroll(function() {
-	$("._1dwg").each(function() {//each timeline post
+//	$("._1dwg").each(function() {//each timeline post
+	$("._5v3q").each(function() {//each timeline post
 		var post = {};
 		var type = "";
 		var ID = "";
 		var postText = "";
+		var commentText = "";
 		
 		var types = ["posts", "comments", "videos", "photos", "permalink"];//more?
 		$(this).find("._5pcq").each(function() {//get type and ID from permalink
@@ -45,21 +47,28 @@ $(window).scroll(function() {
 		});
 		$(this).find("._5pbx").each(function() {//get main post text
 			//should only be one
-			postText = "";
 			$(this).find("p").each(function() {
 				postText += cleanHTML($(this).html())+" ";
 			});
 		});
+		$(this).find(".UFICommentBody").each(function() {//get main post text
+			console.log("A");
+			$(this).find("span").each(function() {//should only be one
+				commentText += cleanHTML($(this).html())+" ";
+			});
+		});
+		
 //		console.log("type: "+type);
 //		console.log("ID  : "+ID);
 //		console.log("post: "+postText);
 //		console.log("");
+		console.log("comments: "+commentText);
 		
 		if (type !== "" && ID !== "" && postText !== "" && $.inArray((type, ID), postedIDs) < 0) {
-			console.log("A");
 			post["type"] = type;
 			post["ID"] = ID;
 			post["text"] = postText;
+			post["comment"] = commentText;
 			
 			posts.push(post);
 			postedIDs.push((type, ID));
