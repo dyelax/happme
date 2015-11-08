@@ -20,8 +20,11 @@ var userID = "mattjcoop";
 var showAlertTimeout = null;
 
 $(window).load(function(){
-	var userURL = $("._36he").attr("href");
-	userID = userURL.substr(25, userURL.indexOf("?") - 25);//cut off facebook domain and GET info.
+	// var userURL = $("._36he").attr("href");
+	// if (userURL != null) {
+	// 	userID = userURL.substr(25, userURL.indexOf("?") - 25);//cut off facebook domain and GET info.
+	// }
+	
 //	setUser(userID);
 	
 	scanFeed();
