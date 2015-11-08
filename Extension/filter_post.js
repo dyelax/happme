@@ -43,12 +43,17 @@ var newContent = '<div class="userContentWrapper _5pcr" id="inserted" role="arti
 	</div>\
 </div>'
 
+var last_elt = "happy";
 /*
 randomizes gif using giphy and choosing random element of gif_array
 */
 function generateNewContent() {
-	var cute_array = ["puppy", "kitty", "cute", "happy"];
-	q = cute_array[Math.floor(Math.random()*cute_array.length)];; // search query
+	var cute_array = ["puppy", "kitty", "cute", "happy", "sparkles", "unicorn", "baby"];
+	q = cute_array[Math.floor(Math.random()*cute_array.length)]; // search query
+	while(q === last_elt) {
+		q = cute_array[Math.floor(Math.random()*cute_array.length)]; // search query
+	} 
+	last_elt = q;
 
 	request = new XMLHttpRequest;
 	request.open('GET', 'https://api.giphy.com/v1/gifs/random?api_key=dc6zaTOxFJmzC&tag='+q, true);
