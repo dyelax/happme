@@ -52,7 +52,7 @@ $(window).scroll(function() {
 				postText += cleanHTML($(this).html())+" ";
 			});
 		});
-		$(this).find(".UFICommentBody").each(function() {//get main post text
+		$(this).find(".UFICommentBody").each(function() {//get comment text
 			$(this).find("span").each(function() {//should only be one
 				commentText += cleanHTML($(this).html())+". ";
 			});

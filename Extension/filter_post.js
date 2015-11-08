@@ -1,65 +1,7 @@
+/*array of idstr*/
+var blockedIDs = [];
 
-var real_image;
-var real_content = [];
-
-/*
-blocks image and replaces with replacement image
-*/
-function blockImage(id, replacementImage) {
-	var id_and_class = id + "._4ikz";
-	// _5cq3 a img contains user posted image
-	$(id_and_class).find("._5cq3 a img").attr("src", replacementImage);
-	// make sure to sent height and width of replacement content
-}
-
-/*
-blocks advertisement image, replaces with replacement images
-*/
-function blockAddImage(id, replacementImage) {
-	var id_and_class = id + "._4ikz";
-	// _5cq3 a img contains user posted image
-	$(id_and_class).find(".uiScaledImageContainer._6m5 img").attr("src", replacementImage);
-}
-
-/*
-replaces user text content with replacement content 
-*/
-function blockUserContent(replacementContent) {
-	// get and save real content
-	var id_and_class = "._4ikz";
-	// _5pbx userContent contains content
-	$(id_and_class).find("._5pbx.userContent p").text(replacementContent);
-}
-
-function generateNewContent() {
-	q = "puppy"; // search query
-	
-	request = new XMLHttpRequest;
-	request.open('GET', 'http://api.giphy.com/v1/gifs/random?api_key=dc6zaTOxFJmzC&tag='+q, true);
-	
-	request.onload = function() {
-		if (request.status >= 200 && request.status < 400){
-			data = JSON.parse(request.responseText).data.image_url;
-			console.log(data);
-			//document.getElementById("giphyme").innerHTML = '<center><img src = "'+data+'"  title="GIF via Giphy"></center>';
-			return data;
-		} else {
-			console.log('reached giphy, but API returned an error');
-		 }
-	};
-
-	request.onerror = function() {
-		console.log('connection error');
-	};
-
-	request.send();
-}
-
-function blockContent() {
-	$(".userContentWrapper._5pcr").ready(function() {
-		$(".userContentWrapper._5pcr").css("display", "none");
-		data = generateNewContent();
-		newContent = '<div class="userContentWrapper _5pcr" id="inserted" role="article" aria-label="Story">\
+var newContent = '<div class="userContentWrapper _5pcr" id="inserted" role="article" aria-label="Story">\
 	<div class="_1dwg">\
 		<div class="clearfix _5x46">\
 			<div class="_38vo">\
@@ -87,7 +29,7 @@ function blockContent() {
 					<div class="mtm">\
 						<div class="_5cq3" data-ft="{"tn":"E"}">\
 							<div class="_46-h _4-ep" style="width:470px;height:352px;" id="u_jsonp_3_u">\
-								<img class="_46-i img" src=""' + data + 'style="left:-5px; top:0px;" width="472" height="315">\
+								<img class="_46-i img" src="https://upload.wikimedia.org/wikipedia/commons/c/c7/Puppy_on_Halong_Bay.jpg" style="left:-5px; top:0px;" width="472" height="315">\
 							</div>\
 						</div>\
 					</div>\
@@ -96,34 +38,72 @@ function blockContent() {
 		</div>\
 	</div>\
 </div>'
-	$("._3ccb").append(newContent);
-	$("#myLink").click(function() {revealBlockedContent(); return false;}); 
-	});
-}
 
 /**
 reveals content that has been blocked
 needs to incorporate
 */
-function revealBlockedContent() {
-	$("#inserted.userContentWrapper._5pcr").css("display", "none");
-	$(".userContentWrapper._5pcr").css("display", "inline");
+function revealBlockedContent(curr_page) {
+	// set display to none of current inserted html
+	$(curr_page).find("#inserted").css("display", "none");
+	// get the closest parent and set display to inline
+	$(curr_page).find(".userContentWrapper._5pcr").css("display", "inline");
 }
 
 /*
 inputs an id, blocks content with id
+and type and blocks posts that match this id and type
 */
-function blockByID(id) {
-	var id_string = "#" + id; // create id string for search
-	blockContent();
+function blockByTypeAndID(type, id) {
+	var id_string = type + "/"  + id; // create id string for search
+	// on load look to see if contains the id_string to block
+	$(window).load(function() {
+		$("._5v3q").each(function() {
+			var curr_page = this;
+			// go in and find this part
+			$(this).find("._5pcq").each(function() {
+				// looks to see if this ._5v3q contains the type/id
+				if ($(this).attr("href").indexOf(id_string) > -1 ) {
+					// only do this if not in array
+					if ($.inArray(id_string, blockedIDs) == -1) {
+							// get the closest and set display to none
+						$(this).closest(".userContentWrapper._5pcr").css("display", "none");
+						// append new content
+						$(this).closest("._3ccb").append(newContent);
+						// set function to link
+						$("#myLink").click(function() {revealBlockedContent(curr_page); return false;}); 
+						blockedIDs.push(id_string); // add to list of blockedIDs
+					}	
+				}
+			});
+		});
+	});
+	// check to make sure when scrolling ok
 	$(window).scroll(function() {
-		$("._4ikz").ready(function() {//each timeline post
-			blockContent(id);
+		$("._5v3q").each(function() {
+			var curr_page = this;
+			// go in and find this part
+			$(this).find("._5pcq").each(function() {
+				// looks to see if this ._5v3q contains the type/id
+				if ($(this).attr("href").indexOf(id_string) > -1 ) {
+					// only do this if not in array
+					if ($.inArray(id_string, blockedIDs) == -1) {
+							// get the closest and set display to none
+						$(this).closest(".userContentWrapper._5pcr").css("display", "none");
+						// append new content
+						$(this).closest("._3ccb").append(newContent);
+						// set function to link
+						$("#myLink").click(function() {revealBlockedContent(curr_page); return false;}); 
+						blockedIDs.push(id_string); // add to list of blockedIDs
+					}	
+				}
+			});
 		});
 	});
 }
-
-blockByID("substream_0");
-
-
+blockByTypeAndID("posts", "10205805439035045");
+blockByTypeAndID("posts", "975588315818234");
+blockByTypeAndID("posts", "1093232884029780"); // ali
+blockByTypeAndID("posts", "10203609883647759"); //max
+///maxluzuriaga/posts/10203609883647759
 
