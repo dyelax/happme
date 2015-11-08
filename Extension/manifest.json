@@ -18,7 +18,6 @@
   ],
 	"permissions": [
 		"activeTab",
-		"<all_urls>",
-		"storage"
+		"<all_urls>"
 	]
 }

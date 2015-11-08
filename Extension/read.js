@@ -8,15 +8,10 @@ function changeDivs(){
 	});
 }
 
-// get whole html 
+// get whole html of page
 function getHTML(){
     return document.body.outerHTML;
 }
-
-//Gives you all the text on the page
-//console.log(getHTML());             //Gives you the whole HTML of the page
-
-//._5pbx .userContent -> p
 
 var posts = [];
 var postedText = [];
@@ -25,6 +20,7 @@ var userID = "";
 $(window).load(function(){
 	var userURL = $("._36he").attr("href");
 	userID = userURL.substr(25, userURL.indexOf("?") - 25);//cut off facebook domain and GET info.
+	setUID(userID);
 });
 
 $(window).scroll(function() {
@@ -58,7 +54,7 @@ $(window).scroll(function() {
 		});
 		$(this).find(".UFICommentBody").each(function() {//get main post text
 			$(this).find("span").each(function() {//should only be one
-				commentText += cleanHTML($(this).html())+" ";
+				commentText += cleanHTML($(this).html())+". ";
 			});
 		});
 		
