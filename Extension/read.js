@@ -66,52 +66,111 @@ function scanFeed(){
 			});
 		});
 
-		
+		var triggers = "";
+		var num_found = 0;
 
-		if (type !== "" && ID !== "" && postText !== "" && $.inArray(postText+commentText, postedText) < 0) {	
-			post["uid"] = userID;
-			
-			var filtering;
-			console.log("A");
-			chrome.storage.sync.get("shouldFilter", function(object) {
-				console.log("B");
+		function doNextThing() {
+			if (type !== "" && ID !== "" && postText !== "" && $.inArray(postText+commentText, postedText) < 0) {	
+				post["uid"] = userID;
 				
-				filtering = object["shouldFilter"];
-				post["filtering"] = filtering;
-//				post["post_type"] = type;
-//				post["post_ID"] = ID;
-				post["contents"] = {"post" : postText, "comment" : commentText};
+				var filtering;
+				console.log("A");
+				chrome.storage.sync.get("shouldFilter", function(object) {
+					console.log("B");
+					
+					filtering = object["shouldFilter"];
+					post["filtering"] = filtering;
+					post["triggers"] = triggers;
+					// post["post_type"] = type;
+	//				post["post_ID"] = ID;
+					post["contents"] = {"post" : postText, "comment" : commentText};
 
-				var serverURL = "https://happme.azurewebsites.net/record_story";
+					var serverURL = "https://happme.azurewebsites.net/record_story";
 
-				$.ajax({
-					type: "POST",
-					url: serverURL,
-					headers: {"Content-Type": "application/json"},
-					data: JSON.stringify(post),
-					success: function(data) {
-						console.log(data);
+					$.ajax({
+						type: "POST",
+						url: serverURL,
+						headers: {"Content-Type": "application/json"},
+						data: JSON.stringify(post),
+						success: function(data) {
+							console.log(data);
 
-						if (data["prompt"]) {
-							if (showAlertTimeout != null) {
-								window.clearTimeout(showAlertTimeout);
+							if (data["prompt"]) {
+								if (showAlertTimeout != null) {
+									window.clearTimeout(showAlertTimeout);
+								}
+								showAlertTimeout = window.setTimeout(function() {
+									alert("Your news feed is more negative than average. This may be aversely affecting your mood. Consider turning on \"Filter Feed\" to make your feed a happier place!");
+								}, 1000);
 							}
-							showAlertTimeout = window.setTimeout(function() {
-								alert("Your news feed is more negative than average. This may be aversely affecting your mood. Consider turning on \"Filter Feed\" to make your feed a happier place!");
-							}, 1000);
-						}
 
-						if (filtering && data["remove"]) {
-							blockByTypeAndID(type, ID);
+							if (filtering && data["remove"]) {
+								blockByTypeAndID(type, ID);
+							}
 						}
-					}
+					});
+
+					postedText.push(postText+commentText);
+					posts.push(post);
 				});
-
-				postedText.push(postText+commentText);
-				posts.push(post);
-			});
-			
+				
+			}
 		}
+
+		chrome.storage.sync.get("profanity", function(object) {
+			if (object["profanity"]) {
+				triggers += "profanity" + ","
+			}
+			num_found++;
+			if (num_found == 6) {
+				doNextThing();
+			}
+		});
+		chrome.storage.sync.get("ptsd", function(object) {
+			if (object["ptsd"]) {
+				triggers += "ptsd" + ","
+			}
+			num_found++;
+			if (num_found == 6) {
+				doNextThing();
+			}
+		});
+		chrome.storage.sync.get("drugUse", function(object) {
+			if (object["drugUse"]) {
+				triggers += "drugUse" + ","
+			}
+			num_found++;
+			if (num_found == 6) {
+				doNextThing();
+			}
+		});
+		chrome.storage.sync.get("sexualAssault", function(object) {
+			if (object["sexualAssault"]) {
+				triggers += "sexualAssault" + ","
+			}
+			num_found++;
+			if (num_found == 6) {
+				doNextThing();
+			}
+		});
+		chrome.storage.sync.get("childAbuse", function(object) {
+			if (object["childAbuse"]) {
+				triggers += "childAbuse" + ","
+			}
+			num_found++;
+			if (num_found == 6) {
+				doNextThing();
+			}
+		});
+		chrome.storage.sync.get("self-harm", function(object) {
+			if (object["self-harm"]) {
+				triggers += "self-harm" + ","
+			}
+			num_found++;
+			if (num_found == 6) {
+				doNextThing();
+			}
+		});
 	});
 	
 //	console.log(posts);
