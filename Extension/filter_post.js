@@ -48,7 +48,7 @@ var last_elt = "happy";
 randomizes gif using giphy and choosing random element of gif_array
 */
 function generateNewContent() {
-	var cute_array = ["puppy", "kitty", "sparkles", "unicorn", "baby"];
+	var cute_array = ["puppy", "kitty", "unicorn", "penguin"];
 	q = cute_array[Math.floor(Math.random()*cute_array.length)]; // search query
 	while(q === last_elt) {
 		q = cute_array[Math.floor(Math.random()*cute_array.length)]; // search query
