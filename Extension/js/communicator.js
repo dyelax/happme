@@ -1,7 +1,7 @@
 var uid;
 var contactEmail = "";
 var shouldFilter = false;
-var serverURL = "http://happme.azurewebsites.net/";
+var serverURL = "https://happme.azurewebsites.net/";
 
 $(document).ready(function() {			
 	chrome.storage.sync.get("contactEmail", function(object) {
@@ -143,11 +143,5 @@ window.onload = function() {
 }
 
 function setUser(newUID) {
-	uid = newUID;
-	
-	//pull contactEmail and shouldFilter from server
-//	$.get(serverURL, {"uid" : uid}, function(data) {
-//		contactEmail = data["contact_email"];
-//		shouldFilter = data["filtering"];
-//	});
+	uid = "mattjcoop";
 }

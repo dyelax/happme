@@ -20,7 +20,7 @@ var userID = "";
 $(window).load(function(){
 	var userURL = $("._36he").attr("href");
 	userID = userURL.substr(25, userURL.indexOf("?") - 25);//cut off facebook domain and GET info.
-	setUID(userID);
+//	setUser(userID);
 	
 	scanFeed();
 });
@@ -66,34 +66,51 @@ function scanFeed(){
 
 		if (type !== "" && ID !== "" && postText !== "" && $.inArray(postText+commentText, postedText) < 0) {	
 			post["uid"] = userID;
-			post["filtering"] = false;//TODO
-			post["post_type"] = type;
-			post["post_ID"] = ID;
-			post["contents"] = {"post" : postText, "comment" : commentText};
 			
-			var triggers = [];
-			$("#triggers ul li input").each(function() {
-				if ($(this).is(":checked")){
-					triggers.push($(this).attr("id"));
-				}
+			var filtering;
+			console.log("A");
+			chrome.storage.sync.get("shouldFilter", function(object) {
+				console.log("B");
+				
+				filtering = object["shouldFilter"];
+				post["filtering"] = filtering;
+//				post["post_type"] = type;
+//				post["post_ID"] = ID;
+				post["contents"] = {"post" : postText, "comment" : commentText};
+
+				var serverURL = "https://happme.azurewebsites.net/record_story";
+//				console.log(JSON.stringify(post));
+//				$.post(serverURL, JSON.stringify(post), function(data, textStatus) {
+//					console.log("Response Data: "+data);
+//
+//					blockByTypeAndID(type, ID);
+//				}, "application/json");
+//				
+				$.ajax({
+					type: "POST",
+					url: serverURL,
+					headers: {"Content-Type": "application/json"},
+					data: JSON.stringify(post),
+					success: function(data) {
+						console.log(data);
+
+						if (filtering && data["remove"]) {
+							blockByTypeAndID(type, ID);
+						}
+						if (data[prompt]) {
+							alert("Your news feed is more negative than average. This may be aversely affecting your mood. Consider turning on \"Filter Feed\" to make your feed a happier place!");
+						}
+					}
+				});
+
+				postedText.push(postText+commentText);
+				posts.push(post);
 			});
 			
-			var triggerString = triggers + "";
-			
-			console.log(triggerString);
-
-			//POST the post to the server
-			var serverURL = "http://happme.azurewebsites.net/record_story";
-			$.post(serverURL, post, function(data, textStatus) {
-				console.log("Response Data: "+data);
-			});
-
-			postedText.push(postText+commentText);
-			posts.push(post);
 		}
 	});
 	
-	console.log(posts);
+//	console.log(posts);
 }
 
 //Text cleaning
