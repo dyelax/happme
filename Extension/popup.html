@@ -70,6 +70,24 @@
 			width: 100%;
 		}
 		
+		#triggers ul{
+			list-style: none;
+			padding: 0;
+			padding-left: 25px;
+			padding-top: 15px;
+			margin-bottom: 0;
+			
+			color: gray;
+		}
+		#triggers ul li{
+			padding: 2px 0;
+		}
+		#triggers ul li label{
+			float: left;
+		}
+		#triggers ul li input{
+			float: right;
+		}
 		
     </style>
   </head>
@@ -83,7 +101,7 @@
 		  <div id="filter">
 			   <p>Filter Posts?</p>
 			   <div class="onoffswitch">
-				   <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="filterSwitch" checked />
+				   <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="filterSwitch" unchecked />
 				   <label class="onoffswitch-label" for="filterSwitch">
 					   <span class="onoffswitch-inner"></span>
 					   <span class="onoffswitch-switch"></span>
@@ -91,6 +109,43 @@
 			  </div>
 			  
 			  <div style="clear: both" />
+		  </div>
+		  <div id="triggers">
+			  <p>Triggers:</p>
+			  <div style="clear: both" />
+<!--			   profanity, drug use, sexual assault, child abuse, self-harm violence-->
+			  <ul>
+				  <li>
+					  <label for="profanity">Profanity</label>
+					  <input id="profanity" type="checkbox" name="profanity" />
+				  </li>
+				  <div style="clear: both" />
+				  <li>
+					  <label for="ptsd">PTSD</label>
+					  <input id="PTSD" type="checkbox" name="ptsd" />
+				  </li>
+				  <div style="clear: both" />
+				  <li>
+					  <label for="drug_use">Drug Use</label>
+					  <input id="drugUse" type="checkbox" name="drug_use" />
+				  </li>
+				  <div style="clear: both" />
+				  <li>
+					  <label for="sexual_assault">Sexual Assault</label>
+					  <input id="sexualAssault" type="checkbox" name="sexual_assault" />
+				  </li>
+				  <div style="clear: both" />
+				  <li>
+					  <label for="child_abuse">Child Abuse</label>
+					  <input id="childAbuse" type="checkbox" name="child_abuse" />
+				  </li>
+				  <div style="clear: both" />
+				  <li>
+					  <label for="self-harm">Self-harm</label>
+					  <input id="self-harm" type="checkbox" name="self-harm" />
+				  </li>
+				  <div style="clear: both" />
+			  </ul>
 		  </div>
 		  <div id="contact">
 			  <p>Contact Email:</p>
