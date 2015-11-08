@@ -131,9 +131,14 @@ function revealBlockedContent(curr_page) {
 inputs an id, blocks content with id
 and type and blocks posts that match this id and type
 */
+var last_time = getTime();
 function blockByTypeAndID(type, id) {
 	generateNewContent();
 	var id_string = type + "/"  + id; // create id string for search
+	// make sure enough time between calls
+	if (getTime() - last_time < 2) {
+		return;
+	}
 	// on load look to see if contains the id_string to block
 	$(window).load(function() {
 		$("._5v3q").each(function() {
@@ -151,6 +156,7 @@ function blockByTypeAndID(type, id) {
 						// set function to link
 						$("#myLink").click(function() {revealBlockedContent(curr_page); return false;}); 
 						blockedIDs.push(id_string); // add to list of blockedIDs
+						last_time = getTime();
 					}	
 				}
 			});
@@ -173,6 +179,7 @@ function blockByTypeAndID(type, id) {
 						// set function to link
 						$("#myLink").click(function() {revealBlockedContent(curr_page); return false;}); 
 						blockedIDs.push(id_string); // add to list of blockedIDs
+						last_time = getTime();
 					}	
 				}
 			});
