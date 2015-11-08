@@ -47,7 +47,7 @@ var newContent = '<div class="userContentWrapper _5pcr" id="inserted" role="arti
 randomizes gif using giphy and choosing random element of gif_array
 */
 function generateNewContent() {
-	var cute_array = ["puppy", "kitty", "cute", "happy"];
+	var cute_array = ["puppy", "kitty", "cat", "dog"];
 	q = cute_array[Math.floor(Math.random()*cute_array.length)];; // search query
 
 	request = new XMLHttpRequest;

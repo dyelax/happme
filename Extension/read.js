@@ -64,6 +64,8 @@ function scanFeed(){
 			});
 		});
 
+		
+
 		if (type !== "" && ID !== "" && postText !== "" && $.inArray(postText+commentText, postedText) < 0) {	
 			post["uid"] = userID;
 			
@@ -79,13 +81,7 @@ function scanFeed(){
 				post["contents"] = {"post" : postText, "comment" : commentText};
 
 				var serverURL = "https://happme.azurewebsites.net/record_story";
-//				console.log(JSON.stringify(post));
-//				$.post(serverURL, JSON.stringify(post), function(data, textStatus) {
-//					console.log("Response Data: "+data);
-//
-//					blockByTypeAndID(type, ID);
-//				}, "application/json");
-//				
+
 				$.ajax({
 					type: "POST",
 					url: serverURL,
