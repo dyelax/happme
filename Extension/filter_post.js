@@ -45,7 +45,7 @@ needs to incorporate
 */
 function revealBlockedContent(curr_page) {
 	// set display to none of current inserted html
-	$(curr_page).find("#inserted").css("display", "none");
+	$(curr_page).find("#inserted").remove();
 	// get the closest parent and set display to inline
 	$(curr_page).find(".userContentWrapper._5pcr").css("display", "inline");
 }
