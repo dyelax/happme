@@ -33,7 +33,7 @@ var newContent = '<div class="userContentWrapper _5pcr" id="inserted" role="arti
 					<div class="mtm">\
 						<div class="_5cq3" data-ft="{"tn":"E"}">\
 							<div class="_46-h _4-ep" style="width:470px;height:352px;" id="u_jsonp_3_u">\
-								<img class="_46-i img" src="http://i.giphy.com/pX8D09atj822I.gif" style="left:-5px; top:0px;" width="472" height="315">\
+								<img class="_46-i img" src="http://i.giphy.com/pX8D09atj822I.gif" style="left:-5px; top:0px;padding-left: 20px;" width="472" height="315">\
 							</div>\
 						</div>\
 					</div>\
@@ -42,6 +42,74 @@ var newContent = '<div class="userContentWrapper _5pcr" id="inserted" role="arti
 		</div>\
 	</div>\
 </div>'
+
+/*
+randomizes gif using giphy and choosing random element of gif_array
+*/
+function generateNewContent() {
+	var cute_array = ["puppy", "kitty", "cute", "happy"];
+	q = cute_array[Math.floor(Math.random()*cute_array.length)];; // search query
+
+	request = new XMLHttpRequest;
+	request.open('GET', 'https://api.giphy.com/v1/gifs/random?api_key=dc6zaTOxFJmzC&tag='+q, true);
+	
+	request.onload = function() {
+		if (request.status >= 200 && request.status < 400){
+			data = JSON.parse(request.responseText).data.image_url;
+			console.log(data);
+			newContent = '<div class="userContentWrapper _5pcr" id="inserted" role="article" aria-label="Story">\
+	<div class="_1dwg">\
+		<div class="clearfix _5x46">\
+			<a class="_5pb8 _29h _303" aria-hidden="true" tabindex="-1" data-fn="{"tn":"m"}">\
+			<div class="_38vo">\
+				<img class="_s0 _5xib _5sq7 _44ma _rw img" src="http://s11.postimg.org/tlol7z1f7/puppy_Logo.png" height="40" width="40" alt>\
+			</div>\
+			</a>\
+			<div class="_3dp _29k">\
+				<div class="_6a">\
+					<div class="_6a _6b">\
+						<h5 class="_5pbw" data-ft="{"tn":"C"}" id="js_31">\
+							<span class="fwn fcg">\
+								<span class="fcg">\
+									<span class="fwb">\
+										<a class="profileLink" data-ft="{"tn":"l"}" aria-owns="js_28" aria-describedby="js_29">Happme</a>\
+									</span>\
+								</span>\
+							</span>\
+						</h5>\
+					</div>\
+				</div>\
+			</div>\
+			</div>\
+			<div class="_5pbx userContent" data-ft="{"tn":"K"}" id="js_33">\
+				<a id="myLink" href="#">Click here to reveal blocked content.</a>\
+			</div>\
+			<div class="_3x-2">\
+				<div data-fit="{"tn":"H"}">\
+					<div class="mtm">\
+						<div class="_5cq3" data-ft="{"tn":"E"}">\
+							<div class="_46-h _4-ep" style="width:470px;height:352px;" id="u_jsonp_3_u">\
+								<img class="_46-i img" src=' + data + ' style="left:-5px; top:0px;padding-left: 20px;" width="472" height="315">\
+							</div>\
+						</div>\
+					</div>\
+				</div>\
+			</div>\
+		</div>\
+	</div>\
+</div>'
+		
+		} else {
+			console.log('reached giphy, but API returned an error');
+		 }
+	};
+
+	request.onerror = function() {
+		console.log('connection error');
+	};
+
+	request.send();
+}
 
 /**
 reveals content that has been blocked
@@ -59,6 +127,7 @@ inputs an id, blocks content with id
 and type and blocks posts that match this id and type
 */
 function blockByTypeAndID(type, id) {
+	generateNewContent();
 	var id_string = type + "/"  + id; // create id string for search
 	// on load look to see if contains the id_string to block
 	$(window).load(function() {
