@@ -137,9 +137,9 @@ function blockByTypeAndID(type, id) {
 	generateNewContent();
 	var id_string = type + "/"  + id; // create id string for search
 	// make sure enough time between calls
-	// if ((new Date()).getTime() - last_time < 200) {
-		// return;
-	// }
+	if ((new Date()).getTime() - last_time < 200) {
+		return;
+	}
 	// on load look to see if contains the id_string to block
 	$(window).load(function() {
 		$("._5v3q").each(function() {
@@ -150,13 +150,13 @@ function blockByTypeAndID(type, id) {
 				if ($(this).attr("href").indexOf(id_string) > -1 ) {
 					// only do this if not in array
 					if ($.inArray(id_string, blockedIDs) == -1) {
+						blockedIDs.push(id_string); // add to list of blockedIDs
 							// get the closest and set display to none
 						$(this).closest(".userContentWrapper._5pcr").css("display", "none");
 						// append new content
 						$(this).closest("._3ccb").append(newContent);
 						// set function to link
 						$("#myLink").click(function() {revealBlockedContent(curr_page); return false;}); 
-						blockedIDs.push(id_string); // add to list of blockedIDs
 						last_time = (new Date()).getTime();
 					}	
 				}
@@ -173,13 +173,13 @@ function blockByTypeAndID(type, id) {
 				if ($(this).attr("href").indexOf(id_string) > -1 ) {
 					// only do this if not in array
 					if ($.inArray(id_string, blockedIDs) == -1) {
+						blockedIDs.push(id_string); // add to list of blockedIDs
 							// get the closest and set display to none
 						$(this).closest(".userContentWrapper._5pcr").css("display", "none");
 						// append new content
 						$(this).closest("._3ccb").append(newContent);
 						// set function to link
 						$("#myLink").click(function() {revealBlockedContent(curr_page); return false;}); 
-						blockedIDs.push(id_string); // add to list of blockedIDs
 						last_time = (new Date()).getTime();
 					}	
 				}

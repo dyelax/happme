@@ -15,7 +15,9 @@ function getHTML(){
 
 var posts = [];
 var postedText = [];
-var userID = "";
+var userID = "mattjcoop";
+
+var showAlertTimeout = null;
 
 $(window).load(function(){
 	var userURL = $("._36he").attr("href");
@@ -90,11 +92,17 @@ function scanFeed(){
 					success: function(data) {
 						console.log(data);
 
+						if (data["prompt"]) {
+							if (showAlertTimeout != null) {
+								window.clearTimeout(showAlertTimeout);
+							}
+							showAlertTimeout = window.setTimeout(function() {
+								alert("Your news feed is more negative than average. This may be aversely affecting your mood. Consider turning on \"Filter Feed\" to make your feed a happier place!");
+							}, 1000);
+						}
+
 						if (filtering && data["remove"]) {
 							blockByTypeAndID(type, ID);
-						}
-						if (data[prompt]) {
-							alert("Your news feed is more negative than average. This may be aversely affecting your mood. Consider turning on \"Filter Feed\" to make your feed a happier place!");
 						}
 					}
 				});
