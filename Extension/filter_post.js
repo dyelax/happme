@@ -29,7 +29,7 @@ var newContent = '<div class="userContentWrapper _5pcr" id="inserted" role="arti
 					<div class="mtm">\
 						<div class="_5cq3" data-ft="{"tn":"E"}">\
 							<div class="_46-h _4-ep" style="width:470px;height:352px;" id="u_jsonp_3_u">\
-								<img class="_46-i img" src="https://upload.wikimedia.org/wikipedia/commons/c/c7/Puppy_on_Halong_Bay.jpg" style="left:-5px; top:0px;" width="472" height="315">\
+								<img class="_46-i img" src="http://i.giphy.com/pX8D09atj822I.gif" style="left:-5px; top:0px;" width="472" height="315">\
 							</div>\
 						</div>\
 					</div>\
@@ -101,6 +101,8 @@ function blockByTypeAndID(type, id) {
 		});
 	});
 }
+
+// just some blocks for testing
 blockByTypeAndID("posts", "10205805439035045");
 blockByTypeAndID("posts", "975588315818234");
 blockByTypeAndID("posts", "1093232884029780"); // ali
