@@ -4,16 +4,20 @@ var blockedIDs = [];
 var newContent = '<div class="userContentWrapper _5pcr" id="inserted" role="article" aria-label="Story">\
 	<div class="_1dwg">\
 		<div class="clearfix _5x46">\
+			<a class="_5pb8 _29h _303" aria-hidden="true" tabindex="-1" data-fn="{"tn":"m"}">\
 			<div class="_38vo">\
 				<img class="_s0 _5xib _5sq7 _44ma _rw img" src="http://s11.postimg.org/tlol7z1f7/puppy_Logo.png" height="40" width="40" alt>\
 			</div>\
+			</a>\
 			<div class="_3dp _29k">\
 				<div class="_6a">\
 					<div class="_6a _6b">\
 						<h5 class="_5pbw" data-ft="{"tn":"C"}" id="js_31">\
 							<span class="fwn fcg">\
-								<span class="fwb">\
-									<a class="profileLink">Happme</a>\
+								<span class="fcg">\
+									<span class="fwb">\
+										<a class="profileLink" data-ft="{"tn":"l"}" aria-owns="js_28" aria-describedby="js_29">Happme</a>\
+									</span>\
 								</span>\
 							</span>\
 						</h5>\
