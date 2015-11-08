@@ -157,7 +157,6 @@ function blockByTypeAndID(type, id) {
 						$(this).closest("._3ccb").append(newContent);
 						// set function to link
 						$("#myLink").click(function() {
-							alert("here!");
 							// set display to none of current inserted html
 							$(curr_page).find("#inserted").remove();
 							// get the closest parent and set display to inline
@@ -188,7 +187,6 @@ function blockByTypeAndID(type, id) {
 						$(this).closest("._3ccb").append(newContent);
 						// set function to link
 						$("#myLink").click(function() {
-							alert("here!");
 							// set display to none of current inserted html
 							$(curr_page).find("#inserted").remove();
 							// get the closest parent and set display to inline
