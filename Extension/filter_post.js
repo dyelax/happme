@@ -131,13 +131,12 @@ function revealBlockedContent(curr_page) {
 inputs an id, blocks content with id
 and type and blocks posts that match this id and type
 */
-var d = new Date();
-var last_time = d.getTime();
+var last_time = 0; // initializes time as 0 so won't stall on first post
 function blockByTypeAndID(type, id) {
 	generateNewContent();
 	var id_string = type + "/"  + id; // create id string for search
 	// make sure enough time between calls
-	if ((new Date()).getTime() - last_time < 200) {
+  	if ((new Date()).getTime() - last_time < 200) {
 		return;
 	}
 	// on load look to see if contains the id_string to block
