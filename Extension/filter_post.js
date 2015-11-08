@@ -43,12 +43,17 @@ var newContent = '<div class="userContentWrapper _5pcr" id="inserted" role="arti
 	</div>\
 </div>'
 
+var last_elt = "happy";
 /*
 randomizes gif using giphy and choosing random element of gif_array
 */
 function generateNewContent() {
-	var cute_array = ["puppy", "kitty", "cat", "dog"];
-	q = cute_array[Math.floor(Math.random()*cute_array.length)];; // search query
+	var cute_array = ["puppy", "kitty", "sparkles", "unicorn", "baby"];
+	q = cute_array[Math.floor(Math.random()*cute_array.length)]; // search query
+	while(q === last_elt) {
+		q = cute_array[Math.floor(Math.random()*cute_array.length)]; // search query
+	} 
+	last_elt = q;
 
 	request = new XMLHttpRequest;
 	request.open('GET', 'https://api.giphy.com/v1/gifs/random?api_key=dc6zaTOxFJmzC&tag='+q, true);
@@ -126,9 +131,15 @@ function revealBlockedContent(curr_page) {
 inputs an id, blocks content with id
 and type and blocks posts that match this id and type
 */
+var d = new Date();
+var last_time = d.getTime();
 function blockByTypeAndID(type, id) {
 	generateNewContent();
 	var id_string = type + "/"  + id; // create id string for search
+	// make sure enough time between calls
+	// if ((new Date()).getTime() - last_time < 200) {
+		// return;
+	// }
 	// on load look to see if contains the id_string to block
 	$(window).load(function() {
 		$("._5v3q").each(function() {
@@ -146,6 +157,7 @@ function blockByTypeAndID(type, id) {
 						// set function to link
 						$("#myLink").click(function() {revealBlockedContent(curr_page); return false;}); 
 						blockedIDs.push(id_string); // add to list of blockedIDs
+						last_time = (new Date()).getTime();
 					}	
 				}
 			});
@@ -168,6 +180,7 @@ function blockByTypeAndID(type, id) {
 						// set function to link
 						$("#myLink").click(function() {revealBlockedContent(curr_page); return false;}); 
 						blockedIDs.push(id_string); // add to list of blockedIDs
+						last_time = (new Date()).getTime();
 					}	
 				}
 			});
