@@ -20,7 +20,7 @@ var userID = "";
 $(window).load(function(){
 	var userURL = $("._36he").attr("href");
 	userID = userURL.substr(25, userURL.indexOf("?") - 25);//cut off facebook domain and GET info.
-	setUID(userID);
+	setUser(userID);
 	
 	scanFeed();
 });
@@ -71,19 +71,24 @@ function scanFeed(){
 			post["post_ID"] = ID;
 			post["contents"] = {"post" : postText, "comment" : commentText};
 			
-			var triggers = [];
-			$("#triggers ul li input").each(function() {
-				if ($(this).is(":checked")){
-					triggers.push($(this).attr("id"));
-				}
-			});
-			
-			var triggerString = triggers + "";
-			
-			console.log(triggerString);
+//			var triggers = "";
+//			$("#triggers ul li input").each(function() {
+//				if ($(this).is(":checked")){
+//					triggers += $(this).attr("id") + ", ";
+//				}
+//			});
+//			
+//			var triggerString = "";
+//			if(triggers.length > 0) {
+//				triggerString = triggers.substr(0, triggers.length - 2);
+//			}
+//			
+//			console.log(triggerString);
 
 			//POST the post to the server
-			var serverURL = "http://happme.azurewebsites.net/record_story";
+//			console.log("A");
+			
+			var serverURL = "https://happme.azurewebsites.net/record_story";
 			$.post(serverURL, post, function(data, textStatus) {
 				console.log("Response Data: "+data);
 			});
