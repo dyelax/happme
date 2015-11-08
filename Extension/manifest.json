@@ -12,7 +12,7 @@
 	"content_scripts": [
     {
       "matches": ["*://www.facebook.com/*"],
-      "js": ["jquery-2.1.4.min.js", "read.js", "filter_post.js"],
+      "js": ["jquery-2.1.4.min.js", "filter_post.js"],
       "run_at": "document_end" 
     }
   ],
