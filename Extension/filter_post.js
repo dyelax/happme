@@ -151,11 +151,19 @@ function blockByTypeAndID(type, id) {
 					if ($.inArray(id_string, blockedIDs) == -1) {
 						blockedIDs.push(id_string); // add to list of blockedIDs
 							// get the closest and set display to none
-						$(this).closest(".userContentWrapper._5pcr").css("display", "none");
+						var blocked = $(this).closest(".userContentWrapper._5pcr");
+						$(blocked).css("display", "none");
 						// append new content
 						$(this).closest("._3ccb").append(newContent);
 						// set function to link
-						$("#myLink").click(function() {revealBlockedContent(curr_page); return false;}); 
+						$("#myLink").click(function() {
+							alert("here!");
+							// set display to none of current inserted html
+							$(curr_page).find("#inserted").remove();
+							// get the closest parent and set display to inline
+							$(blocked).css("display", "inline");
+							return false;
+						}); 
 						last_time = (new Date()).getTime();
 					}	
 				}
@@ -174,11 +182,19 @@ function blockByTypeAndID(type, id) {
 					if ($.inArray(id_string, blockedIDs) == -1) {
 						blockedIDs.push(id_string); // add to list of blockedIDs
 							// get the closest and set display to none
-						$(this).closest(".userContentWrapper._5pcr").css("display", "none");
+						var blocked = $(this).closest(".userContentWrapper._5pcr");
+						$(blocked).css("display", "none");
 						// append new content
 						$(this).closest("._3ccb").append(newContent);
 						// set function to link
-						$("#myLink").click(function() {revealBlockedContent(curr_page); return false;}); 
+						$("#myLink").click(function() {
+							alert("here!");
+							// set display to none of current inserted html
+							$(curr_page).find("#inserted").remove();
+							// get the closest parent and set display to inline
+							$(blocked).css("display", "inline");
+							return false;
+						}); 
 						last_time = (new Date()).getTime();
 					}	
 				}
